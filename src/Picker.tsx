@@ -7,7 +7,7 @@ export interface IPickerProp {
   select: (...arg) => void;
   doScrollingComplete: (...arg) => void;
   computeChildIndex: (...arg) => number;
-};
+}
 
 class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   static defaultProps = {
@@ -38,11 +38,14 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       nodeStyle.webkitTransition = value;
     };
 
-    const scrollTo = (_x, y, time = .3) => {
+    const scrollTo = (_x, y, time = 0.3) => {
       if (scrollY !== y) {
         scrollY = y;
         if (time && !this.props.noAnimate) {
-          setTransition(this.contentRef.style, `cubic-bezier(0,0,0.2,1.15) ${time}s`);
+          setTransition(
+            this.contentRef.style,
+            `cubic-bezier(0,0,0.2,1.15) ${time}s`,
+          );
         }
         setTransform(this.contentRef.style, `translate3d(0,${-y}px,0)`);
         setTimeout(() => {
@@ -82,14 +85,15 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       isMoving = false;
       let targetY = scrollY;
 
-      const height = ((this.props.children as any).length - 1) * this.itemHeight;
+      const height =
+        ((this.props.children as any).length - 1) * this.itemHeight;
 
-      let time = .3;
+      let time = 0.3;
 
       const velocity = Velocity.getVelocity(targetY) * 4;
       if (velocity) {
         targetY = velocity * 40 + targetY;
-        time = Math.abs(velocity) * .1;
+        time = Math.abs(velocity) * 0.1;
       }
 
       if (targetY % this.itemHeight !== 0) {
@@ -102,7 +106,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
         targetY = height;
       }
 
-      scrollTo(0, targetY, time < .3 ? .3 : time);
+      scrollTo(0, targetY, time < 0.3 ? 0.3 : time);
       this.onScrollChange();
     };
 
@@ -129,7 +133,9 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     };
 
     return {
-      touchstart: (evt: React.TouchEvent<HTMLDivElement>) => onStart(evt.touches[0].pageY),
+      touchstart: (evt: React.TouchEvent<HTMLDivElement>) => {
+        onStart(evt.touches[0].pageY);
+      },
       mousedown: (evt: React.MouseEvent<HTMLDivElement>) => onStart(evt.pageY),
       touchmove: (evt: React.TouchEvent<HTMLDivElement>) => {
         evt.preventDefault();
@@ -141,7 +147,9 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       },
       touchend: () => onFinish(),
       touchcancel: () => onFinish(),
-      mouseup: () => onFinish(),
+      mouseup: () => {
+        onFinish();
+      },
       getValue: () => {
         return scrollY;
       },
@@ -174,7 +182,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     const { contentRef, indicatorRef, maskRef, rootRef } = this;
     const rootHeight = rootRef.getBoundingClientRect().height;
     // https://github.com/react-component/m-picker/issues/18
-    const itemHeight = this.itemHeight = indicatorRef.getBoundingClientRect().height;
+    const itemHeight = (this.itemHeight = indicatorRef.getBoundingClientRect().height);
     let num = Math.floor(rootHeight / itemHeight);
     if (num % 2 === 0) {
       num--;
@@ -190,18 +198,30 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     const passiveSupported = this.passiveSupported();
     const willPreventDefault = passiveSupported ? { passive: false } : false;
     const willNotPreventDefault = passiveSupported ? { passive: true } : false;
-    Object.keys(this.scrollHanders).forEach(key => {
-      if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
-        const pd = key.indexOf('move') >= 0 ? willPreventDefault : willNotPreventDefault;
-        (rootRef as HTMLDivElement).addEventListener(key, this.scrollHanders[key], pd as any);
+    Object.keys(this.scrollHanders).forEach((key) => {
+      if (
+        key.indexOf('touch') === 0 ||
+        key.indexOf('mouse') === 0 ||
+        key.indexOf('onclick') === 0
+      ) {
+        const pd =
+          key.indexOf('move') >= 0 ? willPreventDefault : willNotPreventDefault;
+        (rootRef as HTMLDivElement).addEventListener(
+          key,
+          this.scrollHanders[key],
+          pd as any,
+        );
       }
     });
   }
 
   componentWillUnmount() {
-    Object.keys(this.scrollHanders).forEach(key => {
+    Object.keys(this.scrollHanders).forEach((key) => {
       if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
-        (this.rootRef as HTMLDivElement).removeEventListener(key, this.scrollHanders[key]);
+        (this.rootRef as HTMLDivElement).removeEventListener(
+          key,
+          this.scrollHanders[key],
+        );
       }
     });
   }
@@ -216,43 +236,54 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
         },
       });
       window.addEventListener('test', null as any, options);
-    } catch (err) { }
+    } catch (err) {}
     return passiveSupported;
   }
 
   componentWillReceiveProps(nextProps: IPickerProp & IPickerProps) {
     if ('selectedValue' in nextProps) {
       if (this.state.selectedValue !== nextProps.selectedValue) {
-        this.setState({
-          selectedValue: nextProps.selectedValue,
-        }, () => {
-          this.props.select(
-            nextProps.selectedValue,
-            this.itemHeight,
-            nextProps.noAnimate ? this.scrollToWithoutAnimation : this.scrollTo,
-          );
-        });
+        this.setState(
+          {
+            selectedValue: nextProps.selectedValue,
+          },
+          () => {
+            this.props.select(
+              nextProps.selectedValue,
+              this.itemHeight,
+              nextProps.noAnimate
+                ? this.scrollToWithoutAnimation
+                : this.scrollTo,
+            );
+          },
+        );
       }
     }
     this.scrollHanders.setDisabled(nextProps.disabled);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.selectedValue !== nextState.selectedValue
-      || this.props.children !== nextProps.children;
+    return (
+      this.state.selectedValue !== nextState.selectedValue ||
+      this.props.children !== nextProps.children
+    );
   }
 
   componentDidUpdate() {
-    this.props.select(this.state.selectedValue, this.itemHeight, this.scrollToWithoutAnimation);
+    this.props.select(
+      this.state.selectedValue,
+      this.itemHeight,
+      this.scrollToWithoutAnimation,
+    );
   }
 
   scrollTo = (top) => {
     this.scrollHanders.scrollTo(0, top);
-  }
+  };
 
   scrollToWithoutAnimation = (top) => {
     this.scrollHanders.scrollTo(0, top, 0);
-  }
+  };
 
   fireValueChange = (selectedValue) => {
     if (selectedValue !== this.state.selectedValue) {
@@ -265,13 +296,17 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
         this.props.onValueChange(selectedValue);
       }
     }
-  }
+  };
 
   onScrollChange = () => {
     const top = this.scrollHanders.getValue();
     if (top >= 0) {
       const children = React.Children.toArray(this.props.children);
-      const index = this.props.computeChildIndex(top, this.itemHeight, children.length);
+      const index = this.props.computeChildIndex(
+        top,
+        this.itemHeight,
+        children.length,
+      );
       if (this.scrollValue !== index) {
         this.scrollValue = index;
         const child: any = children[index];
@@ -282,14 +317,18 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
         }
       }
     }
-  }
+  };
 
   scrollingComplete = () => {
     const top = this.scrollHanders.getValue();
     if (top >= 0) {
-      this.props.doScrollingComplete(top, this.itemHeight, this.fireValueChange);
+      this.props.doScrollingComplete(
+        top,
+        this.itemHeight,
+        this.fireValueChange,
+      );
     }
-  }
+  };
 
   getValue() {
     if ('selectedValue' in this.props) {
@@ -316,29 +355,54 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       return (
         <div
           style={{ ...itemStyle, ...style }}
-          className={`${selectedValue === value ? selectedItemClassName : itemClassName} ${className}`}
+          className={`${
+            selectedValue === value ? selectedItemClassName : itemClassName
+          } ${className}`}
           key={value}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const parent = this.contentRef.getBoundingClientRect();
+            const parentPaddingTop = this.contentRef.style[
+              'padding-top'
+            ].replace('px', '');
+            const child = e.target.getBoundingClientRect();
+            const x = child.top - parent.top - parentPaddingTop;
+            this.scrollTo(x);
+          }}
         >
           {item.children || item.props.children}
         </div>
       );
     };
     // compatibility for preact
-    const items = React.Children ? React.Children.map(children, map) : ([] as any[]).concat(children).map(map);
+    const items = React.Children
+      ? React.Children.map(children, map)
+      : ([] as any[]).concat(children).map(map);
 
     const pickerCls = {
       [props.className as string]: !!props.className,
       [prefixCls as string]: true,
     };
     return (
-      <div className={classNames(pickerCls)} ref={el => this.rootRef = el} style={this.props.style}>
-        <div className={`${prefixCls}-mask`} ref={el => this.maskRef = el} />
+      <div
+        className={classNames(pickerCls)}
+        ref={(el) => (this.rootRef = el)}
+        style={this.props.style}
+      >
+        <div
+          className={`${prefixCls}-mask`}
+          ref={(el) => (this.maskRef = el)}
+        />
         <div
           className={`${prefixCls}-indicator ${indicatorClassName}`}
-          ref={el => this.indicatorRef = el}
+          ref={(el) => (this.indicatorRef = el)}
           style={indicatorStyle}
         />
-        <div className={`${prefixCls}-content`} ref={el => this.contentRef = el}>
+        <div
+          className={`${prefixCls}-content`}
+          ref={(el) => (this.contentRef = el)}
+        >
           {items}
         </div>
       </div>
