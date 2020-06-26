@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-picker@5.0.10</title>
+  <title>popup.js - example - pivi-dev-picker@1.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-picker@5.0.10</h1>
+      <h1>pivi-dev-picker@1.0.0</h1>
 
       <p>React Mobile Picker Component(web and react-native)</p>
     </div>
@@ -271,8 +271,8 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* tslint:disable:no-console */</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/popup.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'pivi-dev-picker/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'pivi-dev-picker/assets/popup.css'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> Popup <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Popup'</span>;
@@ -287,22 +287,29 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-keyword">this</span>.setState({
       disabled: !<span class="hljs-keyword">this</span>.state.disabled,
     });
-  }
+  };
 
   onOk = (value) =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onOk'</span>, value);
     <span class="hljs-keyword">this</span>.setState({
       value,
     });
-  }
+  };
 
   onDismiss = () =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
-  }
+  };
 
   render() {
     <span class="hljs-keyword">const</span> popupContent = (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">160</span>, <span class="hljs-attribute">display:</span> '<span class="hljs-attribute">flex</span>', <span class="hljs-attribute">justifyContent:</span> '<span class="hljs-attribute">center</span>', <span class="hljs-attribute">alignItems:</span> '<span class="hljs-attribute">center</span>' }}&gt;</span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
+          <span class="hljs-attribute">height:</span> <span class="hljs-attribute">160</span>,
+          <span class="hljs-attribute">display:</span> '<span class="hljs-attribute">flex</span>',
+          <span class="hljs-attribute">justifyContent:</span> '<span class="hljs-attribute">center</span>',
+          <span class="hljs-attribute">alignItems:</span> '<span class="hljs-attribute">center</span>',
+        }}
+      &gt;</span>
         popup content
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>;
@@ -310,7 +317,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>' }}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>popup date picker<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.disable}</span>&gt;</span>{this.state.disabled ? 'enable' : 'disable'}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.disable}</span>&gt;</span>
+          {this.state.disabled ? 'enable' : 'disable'}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Popup</span>
             <span class="hljs-attribute">className</span>=<span class="hljs-value">"fortest"</span>
@@ -334,7 +343,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
   </div>
-  <a href="https://github.com/react-component/m-picker">
+  <a href="https://github.com/pivi-dev/pivi-dev-picker">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
          src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
          alt="Fork me on GitHub"

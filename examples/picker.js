@@ -10,7 +10,7 @@
 /******/ 		var moduleId, chunkId, i = 0, resolves = [];
 /******/ 		for(;i < chunkIds.length; i++) {
 /******/ 			chunkId = chunkIds[i];
-/******/ 			if(installedChunks[chunkId]) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
 /******/ 				resolves.push(installedChunks[chunkId][0]);
 /******/ 			}
 /******/ 			installedChunks[chunkId] = 0;
@@ -164,8 +164,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var rmc_picker_assets_index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rmc-picker/assets/index.less */ "./assets/index.less");
-/* harmony import */ var rmc_picker_assets_index_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(rmc_picker_assets_index_less__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var pivi_dev_picker_assets_index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pivi-dev-picker/assets/index.less */ "./assets/index.less");
+/* harmony import */ var pivi_dev_picker_assets_index_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(pivi_dev_picker_assets_index_less__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _src_Picker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src/Picker */ "./src/Picker.tsx");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
@@ -177,15 +177,19 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
 function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 /* tslint:disable:no-console */
 
@@ -195,17 +199,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var count = 0;
 var len = 10;
 
-var PickerDemo =
-/*#__PURE__*/
-function (_React$Component) {
+var PickerDemo = /*#__PURE__*/function (_React$Component) {
   _inherits(PickerDemo, _React$Component);
+
+  var _super = _createSuper(PickerDemo);
 
   function PickerDemo() {
     var _this;
 
     _classCallCheck(this, PickerDemo);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(PickerDemo).apply(this, arguments));
+    _this = _super.apply(this, arguments);
     _this.state = {
       disabled: false,
       items: _this.getItems(count),
@@ -250,7 +254,7 @@ function (_React$Component) {
       var items = [];
 
       for (var i = start; i < start + len; i++) {
-        items.push(react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_1__["default"].Item, {
+        items.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_1__["default"].Item, {
           value: i + '',
           key: i
         }, count, " ", i));
@@ -261,16 +265,16 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("div", {
         style: {
           background: '#f5f5f9',
           padding: 10
         }
-      }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
         onClick: this.rerender
-      }, "rerender"), "\xA0", react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
+      }, "rerender"), "\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
         onClick: this.disable
-      }, this.state.disabled ? 'enable' : 'disable'), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, this.state.disabled ? 'enable' : 'disable'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_1__["default"], {
         selectedValue: this.state.value,
         disabled: this.state.disabled,
         onValueChange: this.onChange,
@@ -282,7 +286,7 @@ function (_React$Component) {
   return PickerDemo;
 }(react__WEBPACK_IMPORTED_MODULE_2__["Component"]);
 
-react_dom__WEBPACK_IMPORTED_MODULE_3__["render"](react__WEBPACK_IMPORTED_MODULE_2__["createElement"](PickerDemo, null), document.getElementById('__react-content'));
+react_dom__WEBPACK_IMPORTED_MODULE_3__["render"]( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](PickerDemo, null), document.getElementById('__react-content'));
 
 /***/ }),
 

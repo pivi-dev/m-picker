@@ -10,7 +10,7 @@
 /******/ 		var moduleId, chunkId, i = 0, resolves = [];
 /******/ 		for(;i < chunkIds.length; i++) {
 /******/ 			chunkId = chunkIds[i];
-/******/ 			if(installedChunks[chunkId]) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
 /******/ 				resolves.push(installedChunks[chunkId][0]);
 /******/ 			}
 /******/ 			installedChunks[chunkId] = 0;
@@ -178,15 +178,19 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
 function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 /* tslint:disable:no-console */
 
@@ -195,17 +199,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var Test =
-/*#__PURE__*/
-function (_React$Component) {
+var Test = /*#__PURE__*/function (_React$Component) {
   _inherits(Test, _React$Component);
+
+  var _super = _createSuper(Test);
 
   function Test() {
     var _this;
 
     _classCallCheck(this, Test);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Test).apply(this, arguments));
+    _this = _super.apply(this, arguments);
     _this.state = {
       value: ['1', '11']
     };
@@ -228,65 +232,65 @@ function (_React$Component) {
   _createClass(Test, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("div", {
         style: {
           background: '#f5f5f9',
           padding: 10
         }
-      }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_MultiPicker__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_MultiPicker__WEBPACK_IMPORTED_MODULE_1__["default"], {
         selectedValue: this.state.value,
         onValueChange: this.onChange,
         onScrollChange: this.onScrollChange
-      }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"], {
         indicatorClassName: "my-picker-indicator"
-      }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "1"
-      }, "one"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "one"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "2"
-      }, "two"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "two"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "3"
-      }, "three"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "three"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "4"
-      }, "four"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "four"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "5"
-      }, "five"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "five"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "6"
-      }, "six"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "six"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "7"
-      }, "seven"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "seven"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "8"
-      }, "eight")), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, "eight")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"], {
         indicatorClassName: "my-picker-indicator"
-      }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "11"
-      }, "eleven"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "eleven"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "12"
-      }, "twelve"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "twelve"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "13"
-      }, "thirteen"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "thirteen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "14"
-      }, "fourteen"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "fourteen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "15"
-      }, "fifteen"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "fifteen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "16"
-      }, "sixteen"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "sixteen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "17"
-      }, "seventeen"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+      }, "seventeen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_src_Picker__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
         className: "my-picker-view-item",
         value: "18"
       }, "eighteen"))));
@@ -296,7 +300,7 @@ function (_React$Component) {
   return Test;
 }(react__WEBPACK_IMPORTED_MODULE_2__["Component"]);
 
-react_dom__WEBPACK_IMPORTED_MODULE_3__["render"](react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Test, null), document.getElementById('__react-content'));
+react_dom__WEBPACK_IMPORTED_MODULE_3__["render"]( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Test, null), document.getElementById('__react-content'));
 
 /***/ }),
 
@@ -328,7 +332,7 @@ var MultiPicker = function MultiPicker(props) {
       style = props.style;
   var selectedValue = props.getValue();
   var colElements = react__WEBPACK_IMPORTED_MODULE_0__["Children"].map(children, function (col, i) {
-    return react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"](col, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"](col, {
       selectedValue: selectedValue[i],
       onValueChange: function onValueChange() {
         for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -346,7 +350,7 @@ var MultiPicker = function MultiPicker(props) {
       }
     });
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", _extends({}, rootNativeProps, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", _extends({}, rootNativeProps, {
     style: style,
     className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, prefixCls)
   }), colElements);
@@ -375,31 +379,35 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
 function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (ComposedComponent) {
   var _a;
 
-  return _a =
-  /*#__PURE__*/
-  function (_React$Component) {
+  return _a = /*#__PURE__*/function (_React$Component) {
     _inherits(_a, _React$Component);
+
+    var _super = _createSuper(_a);
 
     function _a() {
       var _this;
 
       _classCallCheck(this, _a);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(_a).apply(this, arguments));
+      _this = _super.apply(this, arguments);
 
       _this.getValue = function () {
         var _this$props = _this.props,
@@ -444,7 +452,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     _createClass(_a, [{
       key: "render",
       value: function render() {
-        return react__WEBPACK_IMPORTED_MODULE_0__["createElement"](ComposedComponent, _extends({}, this.props, {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"](ComposedComponent, _extends({}, this.props, {
           getValue: this.getValue,
           onValueChange: this.onValueChange,
           onScrollChange: this.props.onScrollChange && this.onScrollChange
