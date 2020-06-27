@@ -1,20 +1,11 @@
 {
-  "name": "rmc-picker",
-  "version": "5.0.10",
+  "name": "pivi-dev-picker",
+  "version": "1.0.0",
   "description": "React Mobile Picker Component(web and react-native)",
-  "keywords": [
-    "react",
-    "react-component",
-    "react-m-picker",
-    "m-picker"
-  ],
-  "homepage": "https://github.com/react-component/m-picker",
+  "homepage": "https://github.com/pivi-dev/pivi-dev-picker",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-component/m-picker.git"
-  },
-  "bugs": {
-    "url": "https://github.com/react-component/m-picker/issues"
+    "url": "https://github.com/pivi-dev/pivi-dev-picker.git"
   },
   "files": [
     "lib",

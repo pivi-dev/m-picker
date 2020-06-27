@@ -366,7 +366,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
             const parentPaddingTop = this.contentRef.style[
               'padding-top'
             ].replace('px', '');
-            const child = e.target.getBoundingClientRect();
+            const child = e.currentTarget.getBoundingClientRect();
             const x = child.top - parent.top - parentPaddingTop;
             this.scrollTo(x);
           }}

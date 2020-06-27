@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 
-import 'rmc-picker/assets/index.less';
-import 'rmc-picker/assets/popup.less';
+import 'pivi-dev-picker/assets/index.less';
+import 'pivi-dev-picker/assets/popup.less';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Popup from '../src/Popup';
@@ -16,22 +16,29 @@ class Demo extends React.Component<any, any> {
     this.setState({
       disabled: !this.state.disabled,
     });
-  }
+  };
 
   onOk = (value) => {
     console.log('onOk', value);
     this.setState({
       value,
     });
-  }
+  };
 
   onDismiss = () => {
     console.log('onDismiss');
-  }
+  };
 
   render() {
     const popupContent = (
-      <div style={{ height: 160, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        style={{
+          height: 160,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         popup content
       </div>
     );
@@ -39,7 +46,9 @@ class Demo extends React.Component<any, any> {
     return (
       <div style={{ margin: '10px 30px' }}>
         <h2>popup date picker</h2>
-        <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
+        <button onClick={this.disable}>
+          {this.state.disabled ? 'enable' : 'disable'}
+        </button>
         <div>
           <Popup
             className="fortest"

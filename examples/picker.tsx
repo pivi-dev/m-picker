@@ -1,6 +1,6 @@
 /* tslint:disable:no-console */
 
-import 'rmc-picker/assets/index.less';
+import 'pivi-dev-picker/assets/index.less';
 import Picker from '../src/Picker';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -20,24 +20,26 @@ class PickerDemo extends React.Component<any, any> {
     this.setState({
       value,
     });
-  }
+  };
 
   onScrollChange = (value) => {
     console.log('onScrollChange', value);
-  }
+  };
 
   disable = () => {
     this.setState({
       disabled: !this.state.disabled,
     });
-  }
+  };
 
   getItems(start) {
     const items: any[] = [];
     for (let i = start; i < start + len; i++) {
-      items.push(<Picker.Item value={i + ''} key={i}>
-        {count} {i}
-      </Picker.Item>);
+      items.push(
+        <Picker.Item value={i + ''} key={i}>
+          {count} {i}
+        </Picker.Item>,
+      );
     }
     return items;
   }
@@ -49,14 +51,16 @@ class PickerDemo extends React.Component<any, any> {
       items,
       value: String(count),
     });
-  }
+  };
 
   render() {
     return (
       <div style={{ background: '#f5f5f9', padding: 10 }}>
         <button onClick={this.rerender}>rerender</button>
         &nbsp;
-        <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
+        <button onClick={this.disable}>
+          {this.state.disabled ? 'enable' : 'disable'}
+        </button>
         <Picker
           selectedValue={this.state.value}
           disabled={this.state.disabled}
