@@ -38,7 +38,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       nodeStyle.webkitTransition = value;
     };
 
-    const scrollTo = (_x, y, time = 0.3) => {
+    const scrollTo = (_x, y, time = 0) => {
       if (scrollY !== y) {
         scrollY = y;
         if (time && !this.props.noAnimate) {
@@ -277,8 +277,8 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     );
   }
 
-  scrollTo = (top) => {
-    this.scrollHanders.scrollTo(0, top);
+  scrollTo = (top, speed = 0) => {
+    this.scrollHanders.scrollTo(0, top, speed);
   };
 
   scrollToWithoutAnimation = (top) => {
@@ -368,7 +368,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
             ].replace('px', '');
             const child = e.currentTarget.getBoundingClientRect();
             const x = child.top - parent.top - parentPaddingTop;
-            this.scrollTo(x);
+            this.scrollTo(x, 0.3);
           }}
         >
           {item.children || item.props.children}
