@@ -28660,7 +28660,7 @@ var Picker = /*#__PURE__*/function (_React$Component) {
       };
 
       var scrollTo = function scrollTo(_x, y) {
-        var time = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.3;
+        var time = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
         if (scrollY !== y) {
           scrollY = y;
@@ -28794,7 +28794,9 @@ var Picker = /*#__PURE__*/function (_React$Component) {
     }();
 
     _this.scrollTo = function (top) {
-      _this.scrollHanders.scrollTo(0, top);
+      var speed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+      _this.scrollHanders.scrollTo(0, top, speed);
     };
 
     _this.scrollToWithoutAnimation = function (top) {
@@ -29005,7 +29007,7 @@ var Picker = /*#__PURE__*/function (_React$Component) {
             var child = e.currentTarget.getBoundingClientRect();
             var x = child.top - parent.top - parentPaddingTop;
 
-            _this5.scrollTo(x);
+            _this5.scrollTo(x, 0.3);
           }
         }, item.children || item.props.children);
       }; // compatibility for preact

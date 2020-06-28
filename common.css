@@ -19,6 +19,7 @@
   color: #9b9b9b;
   width: 100%;
   box-sizing: border-box;
+  z-index: 99999;
 }
 .rmc-picker {
   display: block;
