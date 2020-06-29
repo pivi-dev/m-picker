@@ -28998,7 +28998,6 @@ var Picker = /*#__PURE__*/function (_React$Component) {
           key: value,
           onClick: function onClick(e) {
             e.preventDefault();
-            e.stopPropagation();
 
             var parent = _this5.contentRef.getBoundingClientRect();
 
