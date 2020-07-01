@@ -415,7 +415,8 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
                 let x = this.scrollHanders.getValue();
                 const stop =
                   (this.scrollValue === 0 && goBack) ||
-                  (this.scrollValue === slides.length - 1 && goForward);
+                  (this.scrollValue === (slides as any).length - 1 &&
+                    goForward);
 
                 if (stop) {
                   this.scrollingComplete();
