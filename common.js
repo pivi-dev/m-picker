@@ -28661,6 +28661,7 @@ var Picker = /*#__PURE__*/function (_React$Component) {
 
       var scrollTo = function scrollTo(_x, y) {
         var time = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+        var scrollingComplete = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
         if (scrollY !== y) {
           scrollY = y;
@@ -28670,19 +28671,22 @@ var Picker = /*#__PURE__*/function (_React$Component) {
           }
 
           setTransform(_this.contentRef.style, "translate3d(0,".concat(-y, "px,0)"));
-          setTimeout(function () {
-            _this.scrollingComplete();
 
-            if (_this.contentRef) {
-              setTransition(_this.contentRef.style, '');
-            }
-          }, +time * 1000);
+          if (scrollingComplete) {
+            setTimeout(function () {
+              _this.scrollingComplete();
+
+              if (_this.contentRef) {
+                setTransition(_this.contentRef.style, '');
+              }
+            }, +time * 1000);
+          }
         }
       };
 
       var Velocity = function () {
         var minInterval = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 30;
-        var maxInterval = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
+        var maxInterval = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 250;
         var _time = 0;
         var _y = 0;
         var _velocity = 0;
@@ -28745,6 +28749,19 @@ var Picker = /*#__PURE__*/function (_React$Component) {
         lastY = scrollY;
       };
 
+      var clearLongPress = function clearLongPress() {
+        if (_this.interval) {
+          clearInterval(_this.interval);
+        }
+
+        if (_this.timeout) {
+          clearTimeout(_this.timeout);
+        }
+
+        _this.interval = null;
+        _this.timeout = null;
+      };
+
       var onMove = function onMove(y) {
         if (scrollDisabled || !isMoving) {
           return;
@@ -28763,13 +28780,21 @@ var Picker = /*#__PURE__*/function (_React$Component) {
           onStart(evt.touches[0].pageY);
         },
         mousedown: function mousedown(evt) {
-          return onStart(evt.pageY);
+          onStart(evt.pageY);
         },
         touchmove: function touchmove(evt) {
+          if (_this.interval) {
+            return clearLongPress();
+          }
+
           evt.preventDefault();
           onMove(evt.touches[0].pageY);
         },
         mousemove: function mousemove(evt) {
+          if (_this.interval) {
+            return;
+          }
+
           evt.preventDefault();
           onMove(evt.pageY);
         },
@@ -28786,6 +28811,7 @@ var Picker = /*#__PURE__*/function (_React$Component) {
           return scrollY;
         },
         scrollTo: scrollTo,
+        clearLongPress: clearLongPress,
         setDisabled: function setDisabled() {
           var disabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
           scrollDisabled = disabled;
@@ -28793,10 +28819,15 @@ var Picker = /*#__PURE__*/function (_React$Component) {
       };
     }();
 
+    _this.clearLongPress = function () {
+      _this.scrollHanders.clearLongPress();
+    };
+
     _this.scrollTo = function (top) {
       var speed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var scrollingComplete = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
-      _this.scrollHanders.scrollTo(0, top, speed);
+      _this.scrollHanders.scrollTo(0, top, speed, scrollingComplete);
     };
 
     _this.scrollToWithoutAnimation = function (top) {
@@ -28910,6 +28941,14 @@ var Picker = /*#__PURE__*/function (_React$Component) {
     value: function componentWillUnmount() {
       var _this3 = this;
 
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+
       Object.keys(this.scrollHanders).forEach(function (key) {
         if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
           _this3.rootRef.removeEventListener(key, _this3.scrollHanders[key]);
@@ -28996,8 +29035,53 @@ var Picker = /*#__PURE__*/function (_React$Component) {
           style: _extends(_extends({}, itemStyle), style),
           className: "".concat(selectedValue === value ? selectedItemClassName : itemClassName, " ").concat(className),
           key: value,
+          onPointerUp: function onPointerUp(e) {
+            if (_this5.interval) {
+              _this5.scrollingComplete();
+            }
+
+            _this5.clearLongPress();
+          },
+          onPointerDown: function onPointerDown(e) {
+            var slides = _this5.props.children;
+
+            _this5.clearLongPress();
+
+            _this5.timeout = setTimeout(function () {
+              _this5.interval = setInterval(function () {
+                var val = parseInt(selectedValue, 10);
+                var goForward = parseInt(value, 10) > val - 1;
+                var goBack = parseInt(value, 10) < val + 1;
+
+                var x = _this5.scrollHanders.getValue();
+
+                var stop = _this5.scrollValue === 0 && goBack || _this5.scrollValue === slides.length - 1 && goForward;
+
+                if (stop) {
+                  _this5.scrollingComplete();
+
+                  _this5.clearLongPress();
+
+                  return;
+                }
+
+                if (goForward) {
+                  x += _this5.itemHeight;
+                }
+
+                if (goBack) {
+                  x -= _this5.itemHeight;
+                }
+
+                _this5.scrollTo(x, 0.2, false);
+
+                _this5.onScrollChange();
+              }, 250);
+            }, 3500);
+          },
           onClick: function onClick(e) {
             e.preventDefault();
+            e.stopPropagation();
 
             var parent = _this5.contentRef.getBoundingClientRect();
 
