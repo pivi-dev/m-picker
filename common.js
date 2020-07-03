@@ -28686,7 +28686,7 @@ var Picker = /*#__PURE__*/function (_React$Component) {
 
       var Velocity = function () {
         var minInterval = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 30;
-        var maxInterval = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 250;
+        var maxInterval = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
         var _time = 0;
         var _y = 0;
         var _velocity = 0;
