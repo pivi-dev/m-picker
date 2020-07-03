@@ -61,7 +61,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       }
     };
 
-    const Velocity = ((minInterval = 30, maxInterval = 250) => {
+    const Velocity = ((minInterval = 30, maxInterval = 300) => {
       let _time = 0;
       let _y = 0;
       let _velocity = 0;
@@ -403,39 +403,41 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
             this.clearLongPress();
           }}
           onPointerDown={(e) => {
-            const slides = this.props.children;
+            if (e.pointerType === 'touch') {
+              const slides = this.props.children;
 
-            this.clearLongPress();
+              this.clearLongPress();
 
-            this.timeout = setTimeout(() => {
-              this.interval = setInterval(() => {
-                const val = parseInt(selectedValue, 10);
-                const goForward = parseInt(value, 10) > val - 1;
-                const goBack = parseInt(value, 10) < val + 1;
-                let x = this.scrollHanders.getValue();
-                const stop =
-                  (this.scrollValue === 0 && goBack) ||
-                  (this.scrollValue === (slides as any).length - 1 &&
-                    goForward);
+              this.timeout = setTimeout(() => {
+                this.interval = setInterval(() => {
+                  const val = parseInt(selectedValue, 10);
+                  const goForward = parseInt(value, 10) > val - 1;
+                  const goBack = parseInt(value, 10) < val + 1;
+                  let x = this.scrollHanders.getValue();
+                  const stop =
+                    (this.scrollValue === 0 && goBack) ||
+                    (this.scrollValue === (slides as any).length - 1 &&
+                      goForward);
 
-                if (stop) {
-                  this.scrollingComplete();
-                  this.clearLongPress();
-                  return;
-                }
+                  if (stop) {
+                    this.scrollingComplete();
+                    this.clearLongPress();
+                    return;
+                  }
 
-                if (goForward) {
-                  x += this.itemHeight;
-                }
+                  if (goForward) {
+                    x += this.itemHeight;
+                  }
 
-                if (goBack) {
-                  x -= this.itemHeight;
-                }
+                  if (goBack) {
+                    x -= this.itemHeight;
+                  }
 
-                this.scrollTo(x, 0.2, false);
-                this.onScrollChange();
-              }, 250);
-            }, 3500);
+                  this.scrollTo(x, 0.2, false);
+                  this.onScrollChange();
+                }, 250);
+              }, 1000);
+            }
           }}
           onClick={(e) => {
             e.preventDefault();
