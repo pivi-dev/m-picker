@@ -29043,41 +29043,43 @@ var Picker = /*#__PURE__*/function (_React$Component) {
             _this5.clearLongPress();
           },
           onPointerDown: function onPointerDown(e) {
-            var slides = _this5.props.children;
+            if (e.pointerType === 'touch') {
+              var slides = _this5.props.children;
 
-            _this5.clearLongPress();
+              _this5.clearLongPress();
 
-            _this5.timeout = setTimeout(function () {
-              _this5.interval = setInterval(function () {
-                var val = parseInt(selectedValue, 10);
-                var goForward = parseInt(value, 10) > val - 1;
-                var goBack = parseInt(value, 10) < val + 1;
+              _this5.timeout = setTimeout(function () {
+                _this5.interval = setInterval(function () {
+                  var val = parseInt(selectedValue, 10);
+                  var goForward = parseInt(value, 10) > val - 1;
+                  var goBack = parseInt(value, 10) < val + 1;
 
-                var x = _this5.scrollHanders.getValue();
+                  var x = _this5.scrollHanders.getValue();
 
-                var stop = _this5.scrollValue === 0 && goBack || _this5.scrollValue === slides.length - 1 && goForward;
+                  var stop = _this5.scrollValue === 0 && goBack || _this5.scrollValue === slides.length - 1 && goForward;
 
-                if (stop) {
-                  _this5.scrollingComplete();
+                  if (stop) {
+                    _this5.scrollingComplete();
 
-                  _this5.clearLongPress();
+                    _this5.clearLongPress();
 
-                  return;
-                }
+                    return;
+                  }
 
-                if (goForward) {
-                  x += _this5.itemHeight;
-                }
+                  if (goForward) {
+                    x += _this5.itemHeight;
+                  }
 
-                if (goBack) {
-                  x -= _this5.itemHeight;
-                }
+                  if (goBack) {
+                    x -= _this5.itemHeight;
+                  }
 
-                _this5.scrollTo(x, 0.2, false);
+                  _this5.scrollTo(x, 0.2, false);
 
-                _this5.onScrollChange();
-              }, 250);
-            }, 3500);
+                  _this5.onScrollChange();
+                }, 250);
+              }, 2500);
+            }
           },
           onClick: function onClick(e) {
             e.preventDefault();
