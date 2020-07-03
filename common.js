@@ -29078,7 +29078,7 @@ var Picker = /*#__PURE__*/function (_React$Component) {
 
                   _this5.onScrollChange();
                 }, 250);
-              }, 1500);
+              }, 1000);
             }
           },
           onClick: function onClick(e) {
